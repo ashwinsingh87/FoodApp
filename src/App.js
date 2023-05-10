@@ -9,7 +9,6 @@ import Cart from "./components/Cart";
 import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
-import Instamart from "./components/Instamart";
 import Context from './components/Context'
 import { Provider } from "react-redux";
 import store from "./components/Store";
