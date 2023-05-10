@@ -1,4 +1,4 @@
-import React, {lazy, Suspense,useState, useContext} from "react";
+import React, { lazy, Suspense, useState, useContext } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -10,33 +10,33 @@ import Contact from "./components/Contact";
 import Error from "./components/Error";
 import RestaurantMenu from "./components/RestaurantMenu";
 import Instamart from "./components/Instamart";
-import  Context from './components/Context'
+import Context from './components/Context'
 import { Provider } from "react-redux";
 import store from "./components/Store";
 
 const FoodApp = () => {
   const [user, setUser] = useState({
-    name:"Ashwin Singh",
-    gmail:"rajputashwin87@gmail.com",
+    name: "Ashwin Singh",
+    gmail: "rajputashwin87@gmail.com",
   });
 
 
   return (
     <>
-    <Provider store = {store}>
-    <Context.Provider value={{
-      user:user,
-      setUser:setUser,
-    }}>
-      <Header />
-      <Outlet />
-      <Footer />
-      </Context.Provider>
+      <Provider store={store}>
+        <Context.Provider value={{
+          user: user,
+          setUser: setUser,
+        }}>
+          <Header />
+          <Outlet />
+          <Footer />
+        </Context.Provider>
       </Provider>
     </>
   );
 };
-const About = lazy(()=>import("./components/About"))
+const About = lazy(() => import("./components/About"))
 const appRouter = createBrowserRouter([
   {
     path: "/",
@@ -49,12 +49,13 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/about",
-        element:<Suspense fallback={<h1>Loading....</h1>}><About /></Suspense> ,
+        element: <Suspense fallback={<h1>Loading....</h1>}><About /></Suspense>,
       },
       {
         path: "/contact",
-        element: <Contact />, 
-      },{
+        element: <Contact />,
+      }, 
+      {
         path: "/cart",
         element: <Cart />,
       },

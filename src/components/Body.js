@@ -27,8 +27,8 @@ const Body = () => {
     );
     const json = await response.json();
     const data = json?.data?.cards[2]?.data?.data?.cards;
-    // console.log(json)
     setRestaurantList(data);
+    // console.log(json?.data?.cards[0]?.data?.data?.cards);
     setSearchedList(data);
   }
 
@@ -39,36 +39,45 @@ const Body = () => {
 
   const {user, setUser} = useContext(Context);
 
-
   return RestaurantList?.length === 0 ? (
     <Shimmer />
   ) : (
     <>
 
       <div className="mt-4 mb-2 p-5 flex justify-center text-sm">
+        <form  onSubmit={(e)=>{
+          e.preventDefault();
+            const data = FilterData(SearchInput, RestaurantList);
+            setSearchedList(data);
+        }}>
+
         <input
-          className="border-solid border-2 p-1 rounded-l-md border-gray-200 w-72"
+          className="sm:w-52 border-solid border-2 p-1 rounded-l-md border-gray-200 w-72"
           type="type"
           placeholder="Search"
           value={SearchInput}
           onChange={(e) => {
+        
             setSearchInput(e.target.value);
           }}
         />
         <button
           className="bg-violet-500 hover:bg-violet-600 active:bg-violet-700 focus:outline-none focus:ring focus:ring-violet-300 text-white p-1  rounded-r-md"
           type="submit"
-          onClick={() => {
+          onClick={(e) => {
+            e.preventDefault();
             const data = FilterData(SearchInput, RestaurantList);
             setSearchedList(data);
           }}>
           Search
         </button>
+        </form>
 
         <input
           value={user.name}
-          className="border-solid ml-4 rounded-md pl-1 border-black-200 border-2"
-          onChange={e=>setUser({
+          className="border-solid md:hidden ml-4 rounded-md pl-1 border-black-200 border-2"
+          onChange={e=>
+            setUser({
           name :  e.target.value,
             gmail : "newuser@gmail.com"}
           )}
@@ -78,7 +87,7 @@ const Body = () => {
         {SearchedList?.map((x) => {
           return (
             <Link
-              className="w-72 m-2 border-solid border-2 h-auto shadow-lg  "
+              className="h-auto"
               to={"/restaurant/" + x.data.id}
               key={x.data.id}>
               <HomeContainer {...x} />
